@@ -6,7 +6,7 @@
 /*   By: kkai <kkai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 11:06:43 by kkai              #+#    #+#             */
-/*   Updated: 2022/01/07 13:57:51 by kkai             ###   ########.fr       */
+/*   Updated: 2022/01/07 18:03:25 by kkai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_dlst
 	bool nil;
 	struct s_dlst *next;
 	struct s_dlst *prev;
-} t_dlst;
+}				t_dlst;
 
 
 /*char	sa(t_dlst *num, t_dlst *num2)
