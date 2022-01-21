@@ -1,8 +1,8 @@
 NAME			= push_swap
-SRCS			= main.c
+SRCS			= $(wildcard *.c)
 OBJS			= $(SRCS:.c=.o)
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS			= #-Wall -Wextra -Werror #-g -fsanitize=address
 
 LIBFT_DIR		= ./libft
 LIBFT			= ${LIBFT_DIR}/libft.a
@@ -14,7 +14,8 @@ RM				= rm -f
 		$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-		${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+		make -C ./libft
+		${CC} ${CFLAGS} ${OBJS} $(LIBFT) -o ${NAME}
 
 
 all:	$(NAME)
