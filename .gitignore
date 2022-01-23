@@ -1,0 +1,10 @@
+# object file
+*.o
+
+# library file
+*.a
+
+# execute file
+push_swap
+
+# directory
