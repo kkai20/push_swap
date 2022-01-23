@@ -1,31 +1,35 @@
-NAME			= push_swap
-SRCS			= $(wildcard *.c)
-OBJS			= $(SRCS:.c=.o)
-CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -g
+NAME	=	push_swap
+# SRCSDIR	=	./srcs
+# SRCS	=	$(SRCSDIR)/main.c
+SRCS	=	main.c
+CC		=	gcc
+CFLAGS	=	-Wall -Wextra -Werror -g -MMD -MP
+OBJS	=	$(SRCS:.c=.o)
+DEPENDS	=	$(OBJS:.o=.d)
 
-LIBFT_DIR		= ./libft
-LIBFT			= ${LIBFT_DIR}/libft.a
-INCLUDES_DIR	= includes
-INCLUDES		= -I./${INCLUDES_DIR}
-RM				= rm -f
+LIBFT_DIR	= ./libft
+LIBFT_A			= $(LIBFT_DIR)/libft.a
 
 %.o:	%.c
-		$(CC) $(CFLAGS) -c $< -o $@
+			$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-		make -C ./libft
-		${CC} ${CFLAGS} ${OBJS} $(LIBFT) -o ${NAME}
+$(NAME):	$(OBJS)
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME)
 
+$(LIBFT_A):
+	make -C $(LIBFT_DIR)
+-include $(DEPENDS)
 
 all:	$(NAME)
 
 clean:
-		$(RM) ${OBJS} ${BONUSOBJS}
+			make clean -C $(LIBFT_DIR)
+			rm -rf $(OBJS) $(DEPENDS)
 
 fclean:	clean
-		$(RM) $(NAME)
+			make fclean -C $(LIBFT_DIR)
+			rm -rf $(NAME)
 
-re: fclean all
+re:	fclean all
 
 .PHONY:	all clean fclean re
