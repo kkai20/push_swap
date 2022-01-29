@@ -6,7 +6,7 @@
 /*   By: kkai <kkai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 11:06:43 by kkai              #+#    #+#             */
-/*   Updated: 2022/01/23 19:18:33 by kkai             ###   ########.fr       */
+/*   Updated: 2022/01/29 14:55:35 by kkai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,7 @@ typedef struct s_dlst
 	struct s_dlst *next;
 }				t_dlst;
 
-void ft_clst_link(t_dlst *now, t_dlst *next)
-{
-	now->next = next;
-	next->prev = now;
-}
 
-void ft_clst_insert(t_dlst *lst, t_dlst *new)
-{
-	ft_clst_link(new, lst->next);
-	ft_clst_link(lst, new);
-}
-
-void ft_clstadd_front(t_dlst *start, t_dlst *new)
-{
-	ft_clst_insert(start, new);
-}
-
-void ft_clstadd_back(t_dlst *start, t_dlst *new)
-{
-	ft_clst_insert(start->prev, new);
-}
 
 // 番兵ノード作成
 t_dlst	*dlstnew()
@@ -71,7 +51,7 @@ void	dlstadd_back(t_dlst *a, long num)
 	a->prev->next = new;
 	a->prev = new;
 }
-void	print_dlst(t_dlst *a)
+void	print_dlst(t_dlst *a, t_dlst *b)
 {
 	printf("a: ");
 	a = a->next;
@@ -81,23 +61,35 @@ void	print_dlst(t_dlst *a)
 		a = a->next;
 	}
 	printf("\n");
+
+	printf("b: ");
+	b = b->next;
+	while (b->nil == false)
+	{
+		printf("%ld ", b->value);
+		b = b->next;
+	}
+	printf("\n");
 }
 
 int	main(int argc, char **argv)
 {
 	char	**str;
 	t_dlst	*a;
-	// t_dlst	*b;
+	t_dlst	*b;
 	int		i;
 
 	(void)argc;
 	str = ft_split(argv[1], ' ');
 	i = -1;
 	a = dlstnew();
-	// b = dlstnew();
+	b = dlstnew();
+
+	// bに適当に追加
+	dlstadd_back(b, 1);
 	// aに数字を追加
 	while (str[++i])
 		dlstadd_back(a, ft_atoi(str[i]));
-	print_dlst(a);
+	print_dlst(a, b);
 	return (0);
 }

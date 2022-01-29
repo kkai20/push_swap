@@ -8,16 +8,17 @@ OBJS	=	$(SRCS:.c=.o)
 DEPENDS	=	$(OBJS:.o=.d)
 
 LIBFT_DIR	= ./libft
-LIBFT_A			= $(LIBFT_DIR)/libft.a
+LIBFT_A		= $(LIBFT_DIR)/libft.a
 
 %.o:	%.c
 			$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(LIBFT_A)
 			$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME)
 
 $(LIBFT_A):
-	make -C $(LIBFT_DIR)
+			make -C $(LIBFT_DIR)
+
 -include $(DEPENDS)
 
 all:	$(NAME)
